@@ -1,0 +1,181 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">Cadastro de Paciente</ui:define>
+
+	<ui:define name="head">
+		<style type="text/css">
+.grid-pad .ui-panelgrid-content .ui-panelgrid-cell.ui-grid-col-12 {
+	padding-bottom: 10px;
+}
+</style>
+
+		<script type="text/javascript">
+    
+    function limpa_formulário_cep() {
+            //Limpa valores do formulário de cep.
+            document.getElementById('rua').value=("");
+            document.getElementById('bairro').value=("");
+            document.getElementById('cidade').value=("");
+            document.getElementById('uf').value=("");
+    }
+
+    function meu_callback(conteudo) {
+        if (!("erro" in conteudo)) {
+            //Atualiza os campos com os valores.
+            document.getElementById('rua').value=(conteudo.logradouro);
+            document.getElementById('bairro').value=(conteudo.bairro);
+            document.getElementById('cidade').value=(conteudo.localidade);
+            document.getElementById('uf').value=(conteudo.uf);
+            document.getElementById("complemento").focus();
+        } //end if.
+        else {
+            //CEP não Encontrado.
+            limpa_formulário_cep();
+            alert("CEP não encontrado.");
+        }
+    }
+        
+    function pesquisacep(valor) {
+
+        //Nova variável "cep" somente com dígitos.
+        var cep = valor.replace(/\D/g, '');
+
+        //Verifica se campo cep possui valor informado.
+        if (cep != "") {
+
+            //Expressão regular para validar o CEP.
+            var validacep = /^[0-9]{8}$/;
+
+            //Valida o formato do CEP.
+            if(validacep.test(cep)) {
+
+                //Preenche os campos com "..." enquanto consulta webservice.
+                document.getElementById('rua').value="...";
+                document.getElementById('bairro').value="...";
+                document.getElementById('cidade').value="...";
+                document.getElementById('uf').value="...";
+
+                //Cria um elemento javascript.
+                var script = document.createElement('script');
+
+                //Sincroniza com o callback.
+                script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+
+                //Insere script no documento e carrega o conteúdo.
+                document.body.appendChild(script);
+
+            } //end if.
+            else {
+                //cep é inválido.
+                limpa_formulário_cep();
+                alert("Formato de CEP inválido.");
+            }
+        } //end if.
+        else {
+            //cep sem valor, limpa formulário.
+            limpa_formulário_cep();
+        }
+    };
+
+    </script>
+
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form prependId="false">
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12 ui-lg-12">
+					<div class="card">
+						<h1>Dados do Paciente</h1>
+						<p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+							<p:panelGrid columns="1" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+								<p:outputLabel value="Nome" for="nomePaciente" />
+								<p:inputText id="nomePaciente" />
+							</p:panelGrid>
+
+							<p:panelGrid columns="1" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+								<p:outputLabel value="Sexo" for="sexo" />
+								<p:selectOneButton id="sexo">
+									<f:selectItem itemLabel="Masculino" itemValue="M" />
+									<f:selectItem itemLabel="Feminino" itemValue="F" />
+								</p:selectOneButton>
+							</p:panelGrid>
+						</p:panelGrid>
+
+
+						<p:panelGrid columns="3" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+							<p:panelGrid columns="1" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+								<p:outputLabel value="CPF" for="cpfPaciente" />
+								<p:inputMask id="cpfPaciente" mask="999.999.999-99" />
+							</p:panelGrid>
+
+							<p:panelGrid columns="1" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+								<p:outputLabel value="Telefone" for="telefonePaciente" />
+								<p:inputMask id="telefonePaciente" mask="(99) 9999 9999?9" />
+							</p:panelGrid>
+							<p:panelGrid columns="1" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+								<p:outputLabel value="Data Nascimento" for="dataNascimento" />
+								<p:calendar id="dataNascimento" pattern="dd/MM/yyyy" mask="true" />
+							</p:panelGrid>
+						</p:panelGrid>
+
+						<p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+							<p:panelGrid columns="1" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+								<p:outputLabel value="Email" for="emailPaciente" />
+								<p:inputText id="emailPaciente" />
+							</p:panelGrid>
+							<p:panelGrid columns="1" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+								<p:outputLabel value="Nacionalidade" for="nacionalidade" />
+								<p:inputText id="nacionalidade" />
+							</p:panelGrid>
+						</p:panelGrid>
+					</div>
+				</div>
+
+				<div class="ui-g-12 ui-lg-12">
+					<div class="card">
+						<h1>Endereço</h1>
+						<p:panelGrid columns="3" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+							<p:panelGrid columns="1" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+								<p:outputLabel value="CEP:" for="cep" />
+								<p:inputText id="cep" onblur="pesquisacep(this.value);" />
+							</p:panelGrid>
+
+							<p:panelGrid columns="1" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+								<p:outputLabel value="Rua" for="rua" />
+								<p:inputText id="rua" />
+							</p:panelGrid>
+
+							<p:panelGrid columns="1" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+								<p:outputLabel value="Bairro" for="bairro" />
+								<p:inputText id="bairro" />
+							</p:panelGrid>
+
+							<p:panelGrid columns="1" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+								<p:outputLabel value="Cidade" for="cidade" />
+								<p:inputText id="cidade" />
+							</p:panelGrid>
+
+							<p:panelGrid columns="1" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+								<p:outputLabel value="UF" for="uf" />
+								<p:inputText id="uf" />
+							</p:panelGrid>
+
+							<p:panelGrid columns="1" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+								<p:outputLabel value="Complemento" for="complemento" />
+								<p:inputText id="complemento" />
+							</p:panelGrid>
+
+						</p:panelGrid>
+					</div>
+				</div>
+
+				<div class="ui-g-12 ui-lg-12">
+					<p:commandButton type="button" value="Cadastrar Paciente" icon="fa fa-check" />
+				</div>
+			</div>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+
+	<persistence-unit name="JPAGamerAccess"
+		transaction-type="JTA">
+
+		<jta-data-source>ds-scoi</jta-data-source>
+		<class>br.com.uol.gameraccess.ejb.model.Aluno</class>
+		<class>br.com.uol.gameraccess.ejb.model.ExameFisico</class>
+		<class>br.com.uol.gameraccess.ejb.model.Medicamento</class>
+		<class>br.com.uol.gameraccess.ejb.model.Professor</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_Alergia</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_Alergia_has_TB_Anamnese</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_Anamnese</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_Anamnese_has_ExameFisico</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_Anamnese_has_Medicamento</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_Anamnese_has_TB_Habito</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_Anamnese_has_TB_HistoricoDeDoenca</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_Atendimento</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_CadastroDePaciente</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_CriticidadeDeAtendimento</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_Estado</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_Habito</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_HistoricoDeDoenca</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_Procedimento</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_Procedimento_has_TB_Atendimento</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_Raca</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_Sexo</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_SinaisVitai</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_StatusDeAtendimento</class>
+		<class>br.com.uol.gameraccess.ejb.model.TB_TipoHistoricoDeDoenca</class>
+		<class>br.com.uol.gameraccess.ejb.model.Tb_ListaDoenca</class>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
+
+			<property name="hibernate.transaction.manager_lookup_class"
+				value="org.hibernate.transaction.WeblogicTransactionManagerLookup" />
+
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.use_sql_comments" value="true" />
+			<property name="hibernate.jdbc.wrap_result_sets" value="false" />
+			<property name="hibernate.hibernate.cache.use_query_cache"
+				value="false" />
+			<property name="eclipselink.query-results-cache" value="false" />
+		</properties>
+	</persistence-unit>
+</persistence>

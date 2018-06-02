@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">Dashboard</ui:define>
+
+	<ui:define name="head">
+		<script type="text/javascript">
+            //<![CDATA[
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#007be5', '#20d077'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#F5F5F5',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#666F77'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    lineWidth: 1,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }
+            //]]>  
+        </script>
+		<style type="text/css">
+.main-content {
+	padding: 0;
+}
+</style>
+	</ui:define>
+
+	<ui:define name="content">
+
+		<div class="ui-g ui-fluid dashboard">
+			<div class="ui-g-12 ui-md-6 ui-lg-3">
+				<div class="highlight-box">
+					<div class="initials"
+						style="background-color: #007be5; color: #00448f">TC</div>
+					<div class="card">
+						<span class="fa fa-check"></span> <span>Total Consultas</span> <span
+							class="count">523</span>
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-12 ui-md-6 ui-lg-3">
+				<div class="highlight-box">
+					<div class="initials"
+						style="background-color: #ef6262; color: #a83d3b">TI</div>
+					<div class="card">
+						<span class="fa fa-question-circle"></span> <span>Total
+							Issues</span> <span class="count">81</span>
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-12 ui-md-6 ui-lg-3">
+				<div class="highlight-box">
+					<div class="initials"
+						style="background-color: #20d077; color: #038d4a">OI</div>
+					<div class="card">
+						<span class="fa fa-question-circle-o"></span> <span>Open
+							Issues</span> <span class="count">21</span>
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-12 ui-md-6 ui-lg-3">
+				<div class="highlight-box">
+					<div class="initials"
+						style="background-color: #f9c851; color: #b58c2b">CI</div>
+					<div class="card">
+						<span class="fa fa-check"></span> <span>Closed Issues</span> <span
+							class="count">60</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
